@@ -40,7 +40,7 @@
 
     <!-- Add Disaster -->
     <div class="col">
-      <a href="add_disaster.php" class="text-decoration-none">
+      <a href="user/add_disaster.php" class="text-decoration-none">
         <div class="card text-center shadow-sm p-3">
           <i class="bi bi-exclamation-triangle-fill"></i>
           <div class="card-title">Add Disaster</div>
@@ -50,7 +50,7 @@
 
     <!-- View Disasters -->
     <div class="col">
-      <a href="view_disasters.php" class="text-decoration-none">
+      <a href="admin/view_disasters.php" class="text-decoration-none">
         <div class="card text-center shadow-sm p-3">
           <i class="bi bi-card-list"></i>
           <div class="card-title">View Disasters</div>
@@ -60,7 +60,7 @@
 
     <!-- Add Team -->
     <div class="col">
-      <a href="add_team.php" class="text-decoration-none">
+      <a href="user/add_team.php" class="text-decoration-none">
         <div class="card text-center shadow-sm p-3">
           <i class="bi bi-person-plus-fill"></i>
           <div class="card-title">Add Rescue Team</div>
@@ -70,7 +70,7 @@
 
     <!-- View Teams -->
     <div class="col">
-      <a href="view_teams.php" class="text-decoration-none">
+      <a href="admin/view_teams.php" class="text-decoration-none">
         <div class="card text-center shadow-sm p-3">
           <i class="bi bi-people-fill"></i>
           <div class="card-title">View Rescue Teams</div>
@@ -80,7 +80,7 @@
 
     <!-- Add Victim -->
     <div class="col">
-      <a href="add_victim.php" class="text-decoration-none">
+      <a href="user/add_victim.php" class="text-decoration-none">
         <div class="card text-center shadow-sm p-3">
           <i class="bi bi-person-fill-add"></i>
           <div class="card-title">Add Victim</div>
@@ -90,7 +90,7 @@
 
     <!-- View Victims -->
     <div class="col">
-      <a href="view_victims.php" class="text-decoration-none">
+      <a href="admin/view_victims.php" class="text-decoration-none">
         <div class="card text-center shadow-sm p-3">
           <i class="bi bi-person-lines-fill"></i>
           <div class="card-title">View Victims</div>
@@ -100,7 +100,7 @@
 
     <!-- Add Resource -->
     <div class="col">
-      <a href="add_resource.php" class="text-decoration-none">
+      <a href="user/add_resources.php" class="text-decoration-none">
         <div class="card text-center shadow-sm p-3">
           <i class="bi bi-box-seam"></i>
           <div class="card-title">Add Resource</div>
@@ -110,7 +110,7 @@
 
     <!-- View Resources -->
     <div class="col">
-      <a href="view_resources.php" class="text-decoration-none">
+      <a href="admin/view_resources.php" class="text-decoration-none">
         <div class="card text-center shadow-sm p-3">
           <i class="bi bi-boxes"></i>
           <div class="card-title">View Resources</div>
@@ -121,5 +121,18 @@
   </div>
 </div>
 
+<script>
+// Accessibility: Make dashboard cards focusable and clickable by Enter/Space
+const cards = document.querySelectorAll('.card.text-center');
+cards.forEach(card => {
+  card.tabIndex = 0;
+  card.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){
+      const link = card.closest('a');
+      if(link) link.click();
+    }
+  });
+});
+</script>
 </body>
 </html>
