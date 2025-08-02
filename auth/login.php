@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST["username"]);
     $password = trim($_POST["password"]);
 
-    // Use prepared statement for security
     $stmt = $conn->prepare("SELECT user_id, username, password, role FROM users WHERE username = ? OR email = ? LIMIT 1");
     $stmt->bind_param("ss", $username, $username);
     $stmt->execute();
@@ -18,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_result($user_id, $db_username, $db_password, $role);
         $stmt->fetch();
 
-        // NOTE: In production, use password_verify() for hashed passwords!
-        if ($password === $db_password) {
+        // ✅ Check password using password_verify
+        if (password_verify($password, $db_password)) {
             $_SESSION["user_id"] = $user_id;
             $_SESSION["username"] = $db_username;
             $_SESSION["role"] = $role;
@@ -36,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $error = "Invalid username or password.";
     }
+
     $stmt->close();
 }
 ?>
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 function togglePassword() {
     const password = document.getElementById('password');
     const icon = document.getElementById('toggleIcon');
-    if (password.type === 'password') {
+    if (password_verify($password, $db_password)) {
         password.type = 'text';
         icon.textContent = '🙈';
     } else {
